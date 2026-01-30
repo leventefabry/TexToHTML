@@ -1,24 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
 export default function Home() {
   const [input, setInput] = useState("c = \\pm\\sqrt{a^2 + b^2}");
-  const [html, setHtml] = useState("");
 
-  useEffect(() => {
+  const html = useMemo(() => {
     try {
       const cleanedInput = input.replace(/<\/?katex>/gi, "");
 
-      const rendered = katex.renderToString(cleanedInput, {
+      return katex.renderToString(cleanedInput, {
         throwOnError: false,
-        displayMode: true,
+        displayMode: false,
+        output: "htmlAndMathml",
       });
-      setHtml(rendered);
     } catch (error) {
-      setHtml('<span style="color: red;">Invalid LaTeX</span>');
+      console.error("Error rendering LaTeX:", error);
+      return '<span style="color: red;">Invalid LaTeX</span>';
     }
   }, [input]);
 
