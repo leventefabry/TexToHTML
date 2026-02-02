@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Footer from "./footer/Footer";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TexToHTML",
   description: "Tex to HTML converter",
+  keywords: "LaTeX, KaTeX, HTML, Math, Converter, TexToHTML",
+  authors: [{ name: "Levente Fabry", url: "https://github.com/leventefabry/TexToHTML" }],
 };
 
 export default function RootLayout({
@@ -24,8 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} flex h-screen flex-col overflow-hidden antialiased`}
+      >
         {children}
+        <Footer />
       </body>
     </html>
   );
